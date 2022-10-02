@@ -35,7 +35,7 @@ public class UserMealsUtil {
             mealsMap.merge(meal.getDateTime().toLocalDate(), meal.getCalories(), Integer::sum);
         }
         for (UserMeal meal : meals) {
-            if (meal.getDateTime().toLocalTime().isBefore(startTime) || meal.getDateTime().toLocalTime().isAfter(endTime)) {
+            if (!TimeUtil.isBetweenHalfOpen(meal.getDateTime().toLocalTime(),startTime, endTime)) {
                 continue;
             }
             if (mealsMap.get(meal.getDateTime().toLocalDate()) > caloriesPerDay) {
